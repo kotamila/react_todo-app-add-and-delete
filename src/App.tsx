@@ -162,7 +162,7 @@ export const App: React.FC = () => {
                     className={`todo ${todo.completed ? 'completed' : ''}`}
                   >
                     {isDeleting ? (
-                      <TodoLoader />
+                      <TodoLoader data-cy="TodoLoader" />
                     ) : (
                       <>
                         <label className="todo__status-label">
