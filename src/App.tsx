@@ -1,8 +1,8 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/control-has-associated-label */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import { UserWarning } from './UserWarning';
-import { getTodos, USER_ID } from './todos';
+import { getTodos, addTodo, USER_ID } from './todos';
 import { TodoLoader } from './components/loader';
 import { Todo } from './types/Todo';
 
@@ -10,6 +10,11 @@ export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
   const [errorMessage, setErrorMessage] = useState('');
   const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
+  const [newTitle, setNewTitle] = useState('');
+  const [isAdding, setIsAdding] = useState(false);
+  const [tempTodo, setTempTodo] = useState<Todo | null>(null);
+
+  const inpupRef = useRef<HTMLInputElement | null>(null);
 
   const visibleTodos = todos.filter(todo => {
     if (filter === 'active') {
@@ -22,6 +27,48 @@ export const App: React.FC = () => {
 
     return true;
   });
+
+  const handleSubmit = (event: React.FormEvent) => {
+    event.preventDefault();
+
+    const trimmedTitle = newTitle.trim();
+
+    if (!trimmedTitle) {
+      setErrorMessage('Title should not be empty!');
+      setTimeout(() => setErrorMessage(''), 3000);
+
+      return;
+    }
+
+    const newTodoData = {
+      title: trimmedTitle,
+      completed: false,
+      userId: USER_ID,
+    };
+
+    setTempTodo({
+      id: 0,
+      ...newTodoData,
+    });
+
+    setIsAdding(true);
+
+    addTodo(newTodoData)
+      .then(createdTodo => {
+        setTodos(prev => [...prev, createdTodo]);
+        setNewTitle('');
+        setTempTodo(null);
+      })
+      .catch(() => {
+        setErrorMessage('Unable to add a todo');
+        setTimeout(() => setErrorMessage(''), 3000);
+      })
+      .finally(() => {
+        setTempTodo(null);
+        setIsAdding(false);
+        inpupRef.current?.focus();
+      });
+  };
 
   useEffect(() => {
     setErrorMessage('');
@@ -51,12 +98,16 @@ export const App: React.FC = () => {
                 data-cy="ToggleAllButton"
               />
 
-              <form>
+              <form onSubmit={handleSubmit}>
                 <input
+                  ref={inpupRef}
                   data-cy="NewTodoField"
                   type="text"
                   className="todoapp__new-todo"
                   placeholder="What needs to be done?"
+                  value={newTitle}
+                  onChange={event => setNewTitle(event.target.value)}
+                  disabled={isAdding}
                 />
               </form>
             </header>
@@ -91,10 +142,31 @@ export const App: React.FC = () => {
                   >
                     ×
                   </button>
+                </div>
+              ))}
+
+              {tempTodo && (
+                <div key={tempTodo.id} data-cy="Todo" className="todo">
+                  <label className="todo__status-label">
+                    <input
+                      type="checkbox"
+                      className="todo__status"
+                      checked={false}
+                      readOnly
+                    />
+                  </label>
+
+                  <span data-cy="TodoTitle" className="todo__title">
+                    {tempTodo.title}
+                  </span>
+
+                  <button type="button" className="todo__remove" disabled>
+                    ×
+                  </button>
 
                   <TodoLoader />
                 </div>
-              ))}
+              )}
             </section>
 
             {/* footer ховаємо, якщо немає todo */}
