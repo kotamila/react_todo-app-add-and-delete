@@ -260,15 +260,17 @@ export const App: React.FC = () => {
         </>
       )}
 
-      <div
-        data-cy="TodoLoader"
-        className={classNames('modal overlay', {
-          'is-active': isAdding || deletingTodoIds.length > 0,
-        })}
-      >
-        <div className="modal-background has-background-white-ter" />
-        <div className="loader" />
-      </div>
+      {(isAdding || deletingTodoIds.length > 0) && (
+        <div
+          data-cy="TodoLoader"
+          className={classNames('modal overlay', {
+            'is-active': isAdding || deletingTodoIds.length > 0,
+          })}
+        >
+          <div className="modal-background has-background-white-ter" />
+          <div className="loader" />
+        </div>
+      )}
     </div>
   );
 };
