@@ -3,8 +3,8 @@
 import React, { useEffect, useState, useRef } from 'react';
 import { UserWarning } from './UserWarning';
 import { getTodos, addTodo, deleteTodo, USER_ID } from './todos';
-import { TodoLoader } from './components/loader';
 import { Todo } from './types/Todo';
+import classNames from 'classnames';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -152,43 +152,33 @@ export const App: React.FC = () => {
               className={`todoapp__main ${!hasTodos ? 'hidden' : ''}`}
               data-cy="TodoList"
             >
-              {visibleTodos.map(todo => {
-                const isDeleting = deletingTodoIds.includes(todo.id);
-
-                return (
-                  <div
-                    data-cy="Todo"
-                    key={todo.id}
-                    className={`todo ${todo.completed ? 'completed' : ''}`}
+              {visibleTodos.map(todo => (
+                <div
+                  data-cy="Todo"
+                  key={todo.id}
+                  className={`todo ${todo.completed ? 'completed' : ''}`}
+                >
+                  <label className="todo__status-label">
+                    <input
+                      data-cy="TodoStatus"
+                      type="checkbox"
+                      checked={todo.completed}
+                      readOnly
+                    />
+                  </label>
+                  <span data-cy="TodoTitle" className="todo__title">
+                    {todo.title}
+                  </span>
+                  <button
+                    data-cy="TodoDelete"
+                    type="button"
+                    className="todo__remove"
+                    onClick={() => handleDelete(todo.id)}
                   >
-                    {isDeleting ? (
-                      <TodoLoader data-cy="TodoLoader" />
-                    ) : (
-                      <>
-                        <label className="todo__status-label">
-                          <input
-                            data-cy="TodoStatus"
-                            type="checkbox"
-                            checked={todo.completed}
-                            readOnly
-                          />
-                        </label>
-                        <span data-cy="TodoTitle" className="todo__title">
-                          {todo.title}
-                        </span>
-                        <button
-                          data-cy="TodoDelete"
-                          type="button"
-                          className="todo__remove"
-                          onClick={() => handleDelete(todo.id)}
-                        >
-                          ×
-                        </button>
-                      </>
-                    )}
-                  </div>
-                );
-              })}
+                    ×
+                  </button>
+                </div>
+              ))}
 
               {tempTodo && (
                 <div key={tempTodo.id} className="todo" data-cy="Todo">
@@ -206,7 +196,6 @@ export const App: React.FC = () => {
                   <button type="button" className="todo__remove" disabled>
                     ×
                   </button>
-                  <TodoLoader data-cy="TodoLoader" />
                 </div>
               )}
             </section>
@@ -270,6 +259,16 @@ export const App: React.FC = () => {
           </div>
         </>
       )}
+
+      <div
+        data-cy="TodoLoader"
+        className={classNames('modal overlay', {
+          'is-active': isAdding || deletingTodoIds.length > 0,
+        })}
+      >
+        <div className="modal-background has-background-white-ter" />
+        <div className="loader" />
+      </div>
     </div>
   );
 };
