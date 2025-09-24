@@ -177,6 +177,16 @@ export const App: React.FC = () => {
                   >
                     ×
                   </button>
+                  <div
+                    data-cy="TodoLoader"
+                    className={classNames('modal overlay', {
+                      'is-active': deletingTodoIds.includes(todo.id),
+                    })}
+                  >
+                    {/* eslint-disable-next-line max-len*/}
+                    <div className="modal-background has-background-white-ter" />
+                    <div className="loader" />
+                  </div>
                 </div>
               ))}
 
