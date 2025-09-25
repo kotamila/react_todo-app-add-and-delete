@@ -1,19 +1,17 @@
 import React from 'react';
 
 interface Props {
-  message: string;
+  message: string | null;
   onHide: () => void;
 }
 
 export const ErrorNotification: React.FC<Props> = ({ message, onHide }) => {
-  if (!message) {
-    return null;
-  }
+  const isVisible = Boolean(message);
 
   return (
     <div
       data-cy="ErrorNotification"
-      className={`notification is-danger is-light`}
+      className={`notification is-danger is-light ${isVisible ? '' : 'hidden'}`}
     >
       <button
         data-cy="HideErrorButton"
