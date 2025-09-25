@@ -4,11 +4,17 @@ import classNames from 'classnames';
 
 interface Props {
   todo: Todo;
+  onToggle: (id: number) => void;
   isDeleting: boolean;
   onDelete: (id: number) => void;
 }
 
-export const TodoItem: React.FC<Props> = ({ todo, isDeleting, onDelete }) => (
+export const TodoItem: React.FC<Props> = ({
+  todo,
+  onToggle,
+  isDeleting,
+  onDelete,
+}) => (
   <div
     data-cy="Todo"
     key={todo.id}
@@ -17,10 +23,12 @@ export const TodoItem: React.FC<Props> = ({ todo, isDeleting, onDelete }) => (
     {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
     <label className="todo__status-label">
       <input
+        id={`todo-${todo.id}`}
         data-cy="TodoStatus"
         type="checkbox"
+        className="todo__status"
         checked={todo.completed}
-        readOnly
+        onChange={() => onToggle(todo.id)}
       />
     </label>
     <span data-cy="TodoTitle" className="todo__title">

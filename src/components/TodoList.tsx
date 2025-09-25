@@ -19,13 +19,15 @@ export const TodoList: React.FC<Props> = ({
     className={`todoapp__main ${!hasTodos ? 'hidden' : ''}`}
     data-cy="TodoList"
   >
-    {todos.map(todo => (
-      <TodoItem
-        key={todo.id}
-        todo={todo}
-        isDeleting={deletingTodoIds.includes(todo.id)}
-        onDelete={onDelete}
-      />
-    ))}
+    <ul className="todo-list" data-cy="TodoList">
+      {todos.map(todo => (
+        <TodoItem
+          key={todo.id}
+          todo={todo}
+          isDeleting={deletingTodoIds.includes(todo.id)}
+          onDelete={onDelete}
+        />
+      ))}
+    </ul>
   </section>
 );
