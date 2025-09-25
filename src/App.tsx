@@ -15,6 +15,7 @@ import { TodoFooter } from './components/TodoFooter';
 import { handleSubmit } from './utils/handleSubmit';
 import { handleDelete } from './utils/handleDelete';
 import { handleClearCompleted } from './utils/handleClearCompleted';
+import { handleToggle } from './utils/handleToggle';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -98,6 +99,9 @@ export const App: React.FC = () => {
                   )
                 }
                 hasTodos={hasTodos}
+                onToggle={(id: number) =>
+                  handleToggle(id, todos, setTodos, setErrorMessage)
+                }
               />
 
               {tempTodo && <TempTodo tempTodo={tempTodo} />}

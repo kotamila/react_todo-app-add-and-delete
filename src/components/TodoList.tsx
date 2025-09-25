@@ -7,6 +7,7 @@ interface Props {
   deletingTodoIds: number[];
   onDelete: (id: number) => void;
   hasTodos: boolean;
+  onToggle: (id: number) => void | Promise<void>;
 }
 
 export const TodoList: React.FC<Props> = ({
@@ -14,6 +15,7 @@ export const TodoList: React.FC<Props> = ({
   deletingTodoIds,
   onDelete,
   hasTodos,
+  onToggle,
 }) => (
   <section
     className={`todoapp__main ${!hasTodos ? 'hidden' : ''}`}
@@ -26,6 +28,7 @@ export const TodoList: React.FC<Props> = ({
           todo={todo}
           isDeleting={deletingTodoIds.includes(todo.id)}
           onDelete={onDelete}
+          onToggle={onToggle}
         />
       ))}
     </ul>
