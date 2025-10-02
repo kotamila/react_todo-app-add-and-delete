@@ -15,7 +15,7 @@ import { handleSubmit } from './utils/handleSubmit';
 import { handleDelete } from './utils/handleDelete';
 import { handleClearCompleted } from './utils/handleClearCompleted';
 import { handleToggle } from './utils/handleToggle';
-import { TodoLoader } from './components/loader';
+import { ErrorNotification } from './components/ErrorNotification';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -124,22 +124,11 @@ export const App: React.FC = () => {
               />
             )}
 
-            <div
-              data-cy="ErrorNotification"
-              className={`notification is-danger is-light ${
-                !errorMessage ? 'hidden' : ''
-              }`}
-            >
-              <button
-                data-cy="HiddeErrorButton"
-                type="button"
-                className="delete"
-                onClick={() => setErrorMessage('')}
-              />
-              {errorMessage}
-            </div>
+            <ErrorNotification
+              message={errorMessage}
+              onHide={() => setErrorMessage('')}
+            />
           </div>
-          {deletingTodoIds.length > 0 && <TodoLoader />}
         </>
       )}
     </div>

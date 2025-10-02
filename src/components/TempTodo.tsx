@@ -1,6 +1,5 @@
 import React from 'react';
 import { Todo } from '../types/Todo';
-import { TodoLoader } from './loader';
 
 interface Props {
   tempTodo: Todo;
@@ -24,7 +23,6 @@ export const TempTodo: React.FC<Props> = ({ tempTodo }) => {
       <button type="button" className="todo__remove" disabled>
         ×
       </button>
-      <TodoLoader />
     </div>
   );
 };
