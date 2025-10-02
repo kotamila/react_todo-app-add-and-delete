@@ -55,10 +55,10 @@ export const handleSubmit = ({
     .catch(() => {
       setErrorMessage('Unable to add a todo');
       setTimeout(() => setErrorMessage(''), 3000);
+      setTempTodo(null);
     })
     .finally(() => {
       setIsAdding(false);
-      setTempTodo(null);
       inputRef.current?.focus();
     });
 };

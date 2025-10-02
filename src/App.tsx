@@ -1,7 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 /* eslint-disable jsx-a11y/control-has-associated-label */
 import React, { useEffect, useState, useRef } from 'react';
-import classNames from 'classnames';
 
 import { UserWarning } from './UserWarning';
 import { getTodos, USER_ID } from './todos';
@@ -16,6 +15,7 @@ import { handleSubmit } from './utils/handleSubmit';
 import { handleDelete } from './utils/handleDelete';
 import { handleClearCompleted } from './utils/handleClearCompleted';
 import { handleToggle } from './utils/handleToggle';
+import { TodoLoader } from './components/loader';
 
 export const App: React.FC = () => {
   const [todos, setTodos] = useState<Todo[]>([]);
@@ -139,18 +139,7 @@ export const App: React.FC = () => {
               {errorMessage}
             </div>
           </div>
-
-          {(isAdding || deletingTodoIds.length > 0) && (
-            <div
-              data-cy="TodoLoader"
-              className={classNames('modal overlay', {
-                'is-active': isAdding || deletingTodoIds.length > 0,
-              })}
-            >
-              <div className="modal-background has-background-white-ter" />
-              <div className="loader" />
-            </div>
-          )}
+          {deletingTodoIds.length > 0 && <TodoLoader />}
         </>
       )}
     </div>
