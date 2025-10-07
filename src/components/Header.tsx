@@ -17,7 +17,11 @@ export const Header: React.FC<Props> = ({
 
   return (
     <header className="todoapp__header">
-      <button type="button" className="todoapp__toggle-all active" />
+      <button
+        type="button"
+        className="todoapp__toggle-all active"
+        data-cy="ToggleAllButton"
+      />
 
       <form onSubmit={onSubmit}>
         <input

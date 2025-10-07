@@ -16,10 +16,15 @@ export const TodoItem: React.FC<Props> = ({
   onToggle,
 }) => {
   return (
-    <div key={todo.id} className="todo" data-cy="Todo">
+    <div
+      key={todo.id}
+      data-cy="Todo"
+      className={`todo ${todo.completed ? 'completed' : ''}`}
+    >
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label className="todo__status-label">
         <input
+          data-cy="TodoStatus"
           type="checkbox"
           className="todo__status"
           checked={todo.completed}
@@ -32,6 +37,7 @@ export const TodoItem: React.FC<Props> = ({
       </span>
 
       <button
+        data-cy="TodoDelete"
         type="button"
         className="todo__remove"
         onClick={() => onDelete && onDelete(todo.id)}

@@ -20,11 +20,12 @@ export const TodoFooter: React.FC<Props> = ({
       {activeCount} {activeCount === 1 ? 'item' : 'items'} left
     </span>
 
-    <ul className="filter">
+    <ul className="filter" data-cy="Filter">
       <li>
         <a
           href="#/"
           className={filter === 'all' ? 'selected' : ''}
+          data-cy="FilterLinkAll"
           onClick={() => setFilter('all')}
         >
           All
@@ -34,6 +35,7 @@ export const TodoFooter: React.FC<Props> = ({
         <a
           href="#/active"
           className={filter === 'active' ? 'selected' : ''}
+          data-cy="FilterLinkActive"
           onClick={() => setFilter('active')}
         >
           Active
@@ -43,6 +45,7 @@ export const TodoFooter: React.FC<Props> = ({
         <a
           href="#/completed"
           className={filter === 'completed' ? 'selected' : ''}
+          data-cy="FilterLinkCompleted"
           onClick={() => setFilter('completed')}
         >
           Completed
@@ -53,6 +56,7 @@ export const TodoFooter: React.FC<Props> = ({
     <button
       type="button"
       className="todoapp__clear-completed"
+      data-cy="ClearCompletedButton"
       onClick={onClearCompleted}
       disabled={!hasCompleted}
     >
