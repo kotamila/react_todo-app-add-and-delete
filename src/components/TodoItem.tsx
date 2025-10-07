@@ -14,6 +14,7 @@ export const TodoItem: React.FC<Props> = ({
   isLoading,
   onDelete,
   onToggle,
+  isDeleting,
 }) => {
   return (
     <div
@@ -46,12 +47,13 @@ export const TodoItem: React.FC<Props> = ({
         ×
       </button>
 
-      {isLoading && (
-        <div data-cy="TodoLoader" className="modal overlay is-active">
-          <div className="modal-background has-background-white-ter" />
-          <div className="loader" />
-        </div>
-      )}
+      <div
+        data-cy="TodoLoader"
+        className={`modal overlay ${isDeleting ? 'is-active' : ''}`}
+      >
+        <div className="modal-background has-background-white-ter" />
+        <div className="loader" />
+      </div>
     </div>
   );
 };
