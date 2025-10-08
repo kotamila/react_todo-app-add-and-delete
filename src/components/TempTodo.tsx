@@ -1,3 +1,4 @@
+import { useEffect, useRef } from 'react';
 import React from 'react';
 import { Todo } from '../types/Todo';
 
@@ -6,11 +7,18 @@ interface Props {
 }
 
 export const TempTodo: React.FC<Props> = ({ tempTodo }) => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    inputRef.current?.focus();
+  }, []);
+
   return (
     <div key={tempTodo.id} className="todo" data-cy="Todo">
       {/* eslint-disable-next-line jsx-a11y/label-has-associated-control */}
       <label className="todo__status-label">
         <input
+          ref={inputRef}
           type="checkbox"
           className="todo__status"
           checked={false}
