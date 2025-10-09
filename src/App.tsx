@@ -54,7 +54,7 @@ export const App: React.FC = () => {
     if (inputRef.current && !isAdding) {
       inputRef.current.focus();
     }
-  }, [isAdding]);
+  }, [isAdding, todos]);
 
   const hasTodos = todos.length > 0;
   const completedTodos = todos.filter(todo => todo.completed);
