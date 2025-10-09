@@ -1,10 +1,9 @@
-import React, { useRef } from 'react';
-
 interface Props {
   newTitle: string;
   setNewTitle: (title: string) => void;
   isAdding: boolean;
   onSubmit: (event: React.FormEvent) => void;
+  inputRef: React.MutableRefObject<HTMLInputElement | null>;
 }
 
 export const Header: React.FC<Props> = ({
@@ -12,9 +11,8 @@ export const Header: React.FC<Props> = ({
   setNewTitle,
   isAdding,
   onSubmit,
+  inputRef,
 }) => {
-  const inputRef = useRef<HTMLInputElement | null>(null);
-
   return (
     <header className="todoapp__header">
       <button

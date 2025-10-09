@@ -50,6 +50,12 @@ export const App: React.FC = () => {
       });
   }, []);
 
+  useEffect(() => {
+    if (inputRef.current && !isAdding) {
+      inputRef.current.focus();
+    }
+  }, [isAdding]);
+
   const hasTodos = todos.length > 0;
   const completedTodos = todos.filter(todo => todo.completed);
   const hasCompleted = completedTodos.length > 0;
@@ -69,6 +75,7 @@ export const App: React.FC = () => {
               newTitle={newTitle}
               setNewTitle={setNewTitle}
               isAdding={isAdding}
+              inputRef={inputRef}
               onSubmit={event =>
                 handleSubmit({
                   event,
