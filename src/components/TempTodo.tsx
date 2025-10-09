@@ -26,7 +26,7 @@ export const TempTodo: React.FC<Props> = ({ tempTodo }) => {
         />
       </label>
       <span data-cy="TodoTitle" className="todo__title">
-        {tempTodo.title}{' '}
+        {tempTodo.title}
       </span>
       <button type="button" className="todo__remove" disabled>
         ×

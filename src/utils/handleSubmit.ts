@@ -27,7 +27,7 @@ export const handleSubmit = ({
   const trimmedTitle = newTitle.trim();
 
   if (!trimmedTitle) {
-    setErrorMessage('Title should not be empty!');
+    setErrorMessage('Title should not be empty');
     setTimeout(() => setErrorMessage(''), 3000);
 
     return;
