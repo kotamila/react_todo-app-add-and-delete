@@ -17,10 +17,12 @@ import { handleClearCompleted } from './utils/handleClearCompleted';
 import { handleToggle } from './utils/handleToggle';
 import { ErrorNotification } from './components/ErrorNotification';
 
+import { useTodoState } from './styles/hooks/useTodoState';
+import { FilterType } from './types/Filter';
+
 export const App: React.FC = () => {
-  const [todos, setTodos] = useState<Todo[]>([]);
-  const [errorMessage, setErrorMessage] = useState('');
-  const [filter, setFilter] = useState<'all' | 'active' | 'completed'>('all');
+  const { todos, setTodos, errorMessage, setErrorMessage, filter, setFilter } =
+    useTodoState();
   const [newTitle, setNewTitle] = useState('');
   const [isAdding, setIsAdding] = useState(false);
   const [tempTodo, setTempTodo] = useState<Todo | null>(null);
@@ -29,11 +31,11 @@ export const App: React.FC = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
 
   const visibleTodos = todos.filter(todo => {
-    if (filter === 'active') {
+    if (filter === FilterType.Active) {
       return !todo.completed;
     }
 
-    if (filter === 'completed') {
+    if (filter === FilterType.Completed) {
       return todo.completed;
     }
 

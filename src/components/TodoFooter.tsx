@@ -1,9 +1,10 @@
 import React from 'react';
+import { FilterType } from '../types/Filter';
 
 interface Props {
   activeCount: number;
-  filter: 'all' | 'active' | 'completed';
-  setFilter: (filter: 'all' | 'active' | 'completed') => void;
+  filter: FilterType;
+  setFilter: (filter: FilterType) => void;
   hasCompleted: boolean;
   onClearCompleted: () => void;
 }
@@ -26,7 +27,7 @@ export const TodoFooter: React.FC<Props> = ({
           href="#/"
           className={filter === 'all' ? 'selected' : ''}
           data-cy="FilterLinkAll"
-          onClick={() => setFilter('all')}
+          onClick={() => setFilter(FilterType.All)}
         >
           All
         </a>
@@ -36,7 +37,7 @@ export const TodoFooter: React.FC<Props> = ({
           href="#/active"
           className={filter === 'active' ? 'selected' : ''}
           data-cy="FilterLinkActive"
-          onClick={() => setFilter('active')}
+          onClick={() => setFilter(FilterType.Active)}
         >
           Active
         </a>
@@ -46,7 +47,7 @@ export const TodoFooter: React.FC<Props> = ({
           href="#/completed"
           className={filter === 'completed' ? 'selected' : ''}
           data-cy="FilterLinkCompleted"
-          onClick={() => setFilter('completed')}
+          onClick={() => setFilter(FilterType.Completed)}
         >
           Completed
         </a>
