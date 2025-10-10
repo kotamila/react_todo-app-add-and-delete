@@ -1,5 +1,6 @@
 import React from 'react';
 import { Todo } from '../types/Todo';
+import classNames from 'classnames';
 
 interface Props {
   todo: Todo;
@@ -49,7 +50,7 @@ export const TodoItem: React.FC<Props> = ({
 
       <div
         data-cy="TodoLoader"
-        className={`modal overlay ${isDeleting ? 'is-active' : ''}`}
+        className={classNames('modal', 'overlay', { 'is-active': isDeleting })}
       >
         <div className="modal-background has-background-white-ter" />
         <div className="loader" />

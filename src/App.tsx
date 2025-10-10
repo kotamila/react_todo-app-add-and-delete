@@ -17,8 +17,10 @@ import { handleClearCompleted } from './utils/handleClearCompleted';
 import { handleToggle } from './utils/handleToggle';
 import { ErrorNotification } from './components/ErrorNotification';
 
-import { useTodoState } from './styles/hooks/useTodoState';
+import { useTodoState } from './types/hooks/useTodoState';
 import { FilterType } from './types/Filter';
+
+import classNames from 'classnames';
 
 export const App: React.FC = () => {
   const { todos, setTodos, errorMessage, setErrorMessage, filter, setFilter } =
@@ -93,7 +95,7 @@ export const App: React.FC = () => {
             />
 
             <section
-              className={`todoapp__main ${!hasTodos ? 'hidden' : ''}`}
+              className={classNames('todoapp__main', { hidden: !hasTodos })}
               data-cy="TodoList"
             >
               <TodoList

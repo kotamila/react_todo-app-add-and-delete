@@ -1,5 +1,6 @@
 import React from 'react';
 import { FilterType } from '../types/Filter';
+import classNames from 'classnames';
 
 interface Props {
   activeCount: number;
@@ -25,7 +26,7 @@ export const TodoFooter: React.FC<Props> = ({
       <li>
         <a
           href="#/"
-          className={filter === 'all' ? 'selected' : ''}
+          className={classNames({ selected: filter === FilterType.All })}
           data-cy="FilterLinkAll"
           onClick={() => setFilter(FilterType.All)}
         >
@@ -35,7 +36,7 @@ export const TodoFooter: React.FC<Props> = ({
       <li>
         <a
           href="#/active"
-          className={filter === 'active' ? 'selected' : ''}
+          className={classNames({ selected: filter === FilterType.Active })}
           data-cy="FilterLinkActive"
           onClick={() => setFilter(FilterType.Active)}
         >
@@ -45,7 +46,7 @@ export const TodoFooter: React.FC<Props> = ({
       <li>
         <a
           href="#/completed"
-          className={filter === 'completed' ? 'selected' : ''}
+          className={classNames({ selected: filter === FilterType.Completed })}
           data-cy="FilterLinkCompleted"
           onClick={() => setFilter(FilterType.Completed)}
         >
