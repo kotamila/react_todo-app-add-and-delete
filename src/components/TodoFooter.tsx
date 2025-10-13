@@ -25,7 +25,7 @@ export const TodoFooter: React.FC<Props> = ({
         {itemText}
       </span>
 
-      <ul className="filters" data-cy="Filter">
+      <ul className="filter" data-cy="Filter">
         <li>
           <a
             href="#/"
