@@ -1,6 +1,7 @@
 import React from 'react';
 import { addTodo, USER_ID } from '../todos';
 import { Todo } from '../types/Todo';
+import { ErrorMessage } from '../types/hooks/errorMessage';
 
 interface HandleSubmitArgs {
   event: React.FormEvent;
@@ -27,7 +28,7 @@ export const handleSubmit = ({
   const trimmedTitle = newTitle.trim();
 
   if (!trimmedTitle) {
-    setErrorMessage('Title should not be empty');
+    setErrorMessage(ErrorMessage.TitleShouldNotBeEmpty);
     setTimeout(() => setErrorMessage(''), 3000);
 
     return;
@@ -53,7 +54,7 @@ export const handleSubmit = ({
       setTempTodo(null);
     })
     .catch(() => {
-      setErrorMessage('Unable to add a todo');
+      setErrorMessage(ErrorMessage.UnableToAdd);
       setTimeout(() => setErrorMessage(''), 3000);
       setTempTodo(null);
     })

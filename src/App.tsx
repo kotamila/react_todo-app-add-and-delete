@@ -19,6 +19,7 @@ import { ErrorNotification } from './components/ErrorNotification';
 
 import { useTodoState } from './types/hooks/useTodoState';
 import { FilterType } from './types/Filter';
+import { ErrorMessage } from './types/hooks/errorMessage';
 
 import classNames from 'classnames';
 
@@ -49,7 +50,7 @@ export const App: React.FC = () => {
     getTodos()
       .then(setTodos)
       .catch(() => {
-        setErrorMessage('Unable to load todos');
+        setErrorMessage(ErrorMessage.UnableToLoad);
         setTimeout(() => setErrorMessage(''), 3000);
       });
   }, []);

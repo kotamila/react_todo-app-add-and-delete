@@ -1,6 +1,7 @@
 import React from 'react';
 import { deleteTodo } from '../todos';
 import { Todo } from '../types/Todo';
+import { ErrorMessage } from '../types/hooks/errorMessage';
 
 export const handleDelete = (
   todoId: number,
@@ -15,7 +16,7 @@ export const handleDelete = (
       setTodos(prev => prev.filter(todo => todo.id !== todoId));
     })
     .catch(() => {
-      setErrorMessage('Unable to delete a todo');
+      setErrorMessage(ErrorMessage.UnableToDelete);
       setTimeout(() => setErrorMessage(''), 3000);
     })
     .finally(() => {

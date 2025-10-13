@@ -1,6 +1,7 @@
 import React from 'react';
 import { Todo } from '../types/Todo';
 import { USER_ID } from '../todos';
+import { ErrorMessage } from '../types/hooks/errorMessage';
 
 export const handleToggle = async (
   id: number,
@@ -29,7 +30,7 @@ export const handleToggle = async (
     );
 
     if (!response.ok) {
-      throw new Error('Unable to update a todo');
+      throw new Error(ErrorMessage.UnableToUpdate);
     }
 
     setTodos(prev =>
@@ -38,6 +39,6 @@ export const handleToggle = async (
       ),
     );
   } catch {
-    setErrorMessage('Unable to update a todo');
+    setErrorMessage(ErrorMessage.UnableToUpdate);
   }
 };
