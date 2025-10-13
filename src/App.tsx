@@ -61,10 +61,8 @@ export const App: React.FC = () => {
     }
   }, [isAdding, todos]);
 
-  const hasTodos = todos.length > 0;
   const completedTodos = todos.filter(todo => todo.completed);
   const hasCompleted = completedTodos.length > 0;
-
   const activeCount = todos.filter(todo => !todo.completed).length;
 
   return (
@@ -96,7 +94,9 @@ export const App: React.FC = () => {
             />
 
             <section
-              className={classNames('todoapp__main', { hidden: !hasTodos })}
+              className={classNames('todoapp__main', {
+                hidden: todos.length === 0,
+              })}
               data-cy="TodoList"
             >
               <TodoList
@@ -110,7 +110,7 @@ export const App: React.FC = () => {
                     setDeletingTodoIds,
                   )
                 }
-                hasTodos={hasTodos}
+                hasTodos={todos.length > 0}
                 onToggle={(id: number) =>
                   handleToggle(id, todos, setTodos, setErrorMessage)
                 }
@@ -119,7 +119,7 @@ export const App: React.FC = () => {
               {tempTodo && <TempTodo tempTodo={tempTodo} />}
             </section>
 
-            {hasTodos && (
+            {todos.length > 0 && (
               <TodoFooter
                 activeCount={activeCount}
                 filter={filter}
